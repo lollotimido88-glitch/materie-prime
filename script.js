@@ -1689,106 +1689,66 @@ function materie(){
   `;
 }
 
-const REPATI_GRUPPI=[
-  {
-    name:"Reparto 61",
-    zones:["61 A","61 B","61 C","61 F1","61 F2","61 F3","61 F4","61 F5","61 F6","61 J1","61 J2"]
-  },
-  {
-    name:"Reparto 81",
-    zones:["81 F0","81 F1","81 F2","81 F3","81 F4","81 F5","81 F6","81 F7","81 F8"]
-  },
-  {
-    name:"Reparto 62",
-    zones:["62 Ribalta"]
-  },
-  {
-    name:"Reparto 86",
-    zones:["86 A","86 D","86 G"]
-  },
-  {
-    name:"Reparto 121",
-    zones:["121"]
-  },
-  {
-    name:"Armadio PIAZZALE FUSTI",
-    zones:["ARMADIO PIAZZALE FUSTI"]
-  },
-  {
-    name:"Armadio ZONA BIMBO",
-    zones:["ARMADIO ZONA BIMBO"]
-  },
-  {
-    name:"CAMERA CALDA",
-    zones:["CAMERA CALDA"]
-  },
-  {
-    name:"CAMERA FREDDA",
-    zones:["CAMERA FREDDA"]
-  },
-  {
-    name:"KOPRON 51",
-    zones:["KOPRON 51"]
-  },
-  {
-    name:"LAB",
-    zones:["LAB"]
-  },
-  {
-    name:"MAG SPED",
-    zones:["MAG SPED FAO0","MAG SPED AAC","MAG SPED AAD","MAG SPED F1","MAG SPED AA0","MAG SPED AAA","MAG SPED AAB","MAG SPED Fila AAC"]
-  },
-  {
-    name:"NITRO",
-    zones:["NITRO"]
-  },
-  {
-    name:"P.ZZALE FUSTI",
-    zones:["P.ZZALE FUSTI"]
-  },
-  {
-    name:"REP 62",
-    zones:["REP 62"]
-  },
-  {
-    name:"REPARTO 33",
-    zones:["REPARTO 33"]
-  },
-  {
-    name:"TETTOIA 94",
-    zones:["TETTOIA 94"]
-  }
-];
-
-function deptGroup(name){
-  return REPATI_GRUPPI.find(x=>x.name===name)||null;
-}
-
-function matchesDeptValue(value,group){
-  if(!value||!group) return false;
-  return group.zones.includes(value);
-}
-
 function depts(){
-  return REPATI_GRUPPI.map(group=>{
+  const groups=[
+    {name:"Reparto 61",zones:["61 A","61 B","61 C","61 F1","61 F2","61 F3","61 F4","61 F5","61 F6","61 J1","61 J2"]},
+    {name:"Reparto 81",zones:["81 F0","81 F1","81 F2","81 F3","81 F3/F4","81 F4","81 F5","81 F6","81 F7","81 F8"]},
+    {name:"Reparto 62",zones:["62 RIBALTA"]},
+    {name:"Reparto 86",zones:["86 A","86 D","86 G"]},
+    {name:"Reparto 121",zones:["121"]},
+    {name:"Armadio PIAZZALE FUSTI",zones:["Armadio PIAZZALE FUSTI"]},
+    {name:"Armadio ZONA BIMBO",zones:["Armadio ZONA BIMBO"]},
+    {name:"CAMERA CALDA",zones:["CAMERA CALDA"]},
+    {name:"CAMERA FREDDA",zones:["CAMERA FREDDA"]},
+    {name:"KOPRON 51",zones:["KOPRON 51"]},
+    {name:"LAB",zones:["LAB"]},
+    {name:"MAG SPED",zones:["MAG SP FAO0","MAG SPED AAC","MAG SPED AAD","MAG SPED F1","MAG SPED FILA AA0","MAG SPED FILA AAA","MAG SPED FILA AAB","MAG SPED FILA AAC"]},
+    {name:"NITRO",zones:["NITRO"]},
+    {name:"P.ZZALE FUSTI",zones:["P.ZZALE FUSTI"]},
+    {name:"REP 62",zones:["REP62"]},
+    {name:"REPARTO 33",zones:["REPARTO 33"]},
+    {name:"TETTOIA 94",zones:["TETTOIA 94"]}
+  ];
+
+  return groups.map(g=>{
     let count=0;
 
     data.forEach(x=>{
-      if(matchesDeptValue(x.ubicazione,group)) count++;
+      if(g.zones.includes(x.ubicazione)) count++;
       x.spezzoni.forEach(z=>{
-        if(matchesDeptValue(z,group)) count++;
+        if(g.zones.includes(z)) count++;
       });
     });
 
-    return [group.name,count];
+    return [g.name,count];
   });
 }
 
 function reparti(){
 
+  const groups=[
+    {name:"Reparto 61",zones:["61 A","61 B","61 C","61 F1","61 F2","61 F3","61 F4","61 F5","61 F6","61 J1","61 J2"]},
+    {name:"Reparto 81",zones:["81 F0","81 F1","81 F2","81 F3","81 F3/F4","81 F4","81 F5","81 F6","81 F7","81 F8"]},
+    {name:"Reparto 62",zones:["62 RIBALTA"]},
+    {name:"Reparto 86",zones:["86 A","86 D","86 G"]},
+    {name:"Reparto 121",zones:["121"]},
+    {name:"Armadio PIAZZALE FUSTI",zones:["Armadio PIAZZALE FUSTI"]},
+    {name:"Armadio ZONA BIMBO",zones:["Armadio ZONA BIMBO"]},
+    {name:"CAMERA CALDA",zones:["CAMERA CALDA"]},
+    {name:"CAMERA FREDDA",zones:["CAMERA FREDDA"]},
+    {name:"KOPRON 51",zones:["KOPRON 51"]},
+    {name:"LAB",zones:["LAB"]},
+    {name:"MAG SPED",zones:["MAG SP FAO0","MAG SPED AAC","MAG SPED AAD","MAG SPED F1","MAG SPED FILA AA0","MAG SPED FILA AAA","MAG SPED FILA AAB","MAG SPED FILA AAC"]},
+    {name:"NITRO",zones:["NITRO"]},
+    {name:"P.ZZALE FUSTI",zones:["P.ZZALE FUSTI"]},
+    {name:"REP 62",zones:["REP62"]},
+    {name:"REPARTO 33",zones:["REPARTO 33"]},
+    {name:"TETTOIA 94",zones:["TETTOIA 94"]}
+  ];
+
   if(dept){
 
-    const group=deptGroup(dept);
+    const group=groups.find(g=>g.name===dept);
     const zones=group?group.zones:[dept];
 
     const a=data.filter(x=>
@@ -1936,6 +1896,79 @@ function reparti(){
   `;
 }
 
+function updateSearchResults(id){
+
+  if(id==="ms"){
+
+    const a=list();
+    const cards=$(".cards");
+
+    if(cards){
+      cards.innerHTML=
+        a.length
+          ? a.map(card).join("")
+          : `
+              <div class="noResults">
+                Nessuna materia prima trovata.
+              </div>
+            `;
+    }
+
+    const count=$(".sectionHead .count");
+    if(count) count.textContent=a.length;
+
+    $$(".card").forEach(c=>{
+      c.onclick=()=>{
+        openDetail(+c.dataset.id);
+      };
+    });
+
+    return;
+  }
+
+  if(id==="ds"){
+
+    const q=query.toLowerCase();
+    const grid=$(".deptGrid");
+
+    if(grid){
+      grid.innerHTML=
+        depts()
+          .filter(x=>
+            x[0]
+              .toLowerCase()
+              .includes(q)
+          )
+          .map(x=>`
+            <article
+              class="dept"
+              data-dept="${esc(x[0])}"
+            >
+
+              <strong>
+                ${esc(x[0])}
+              </strong>
+
+              <span>
+                ${x[1]} materie prime
+              </span>
+
+            </article>
+          `)
+          .join("");
+    }
+
+    $$(`[data-dept]`).forEach(x=>{
+      x.onclick=()=>{
+        dept=x.dataset.dept;
+        df="stock";
+        query="";
+        render();
+      };
+    });
+  }
+}
+
 function bind(){
 
   $$(".tab").forEach(b=>
@@ -1953,7 +1986,7 @@ function bind(){
     if(e){
       e.oninput=x=>{
         query=x.target.value;
-        render();
+        updateSearchResults(id);
       };
     }
   });
